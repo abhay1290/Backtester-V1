@@ -1,82 +1,93 @@
-# Python Software Engineer Case
-> December 2024, Cross Options
+# CrossOptionsAssessment
 
-## Description
-One of our analysts has come up with a new trading strategy that he wants to verify before taking it to the real markets.
-To do this you can use a **backtester**, which is a way to check the performance of a trading strategy on historical data.
-This gives the user a rough idea what its performance in real/live markets could be like.
-In this case you will be building a simple version of a backtester and create some functions that are needed to execute the analysts' strategy.
-Before building the backtester we need to have data to work with. 
-Yahoo Finance has an open API for which a Python package has been implemented called [yfinance](https://pypi.org/project/yfinance/).
-The `yfinance_1min_data_example.py` script inside the `scripts/` folder shows a basic example of fetching data using the `yfinance` package.
-Note that this is a basic example which only fetches 5 days worth of 1-minute interval data, for the case you will need more data.
 
-The idea of the analyst is as follows:
-1. Whenever the S&P 500 Future (the E-mini future with ticker symbol `ES=F`) has a 5-minute rolling momentum of > `0.0005` we buy the S&P 500 index and if its < `-0.0005` we sell the index.
-   1. NOTE: technically you cannot directly buy the S&P500 index but for this case we will assume you can
-   2. We define momentum as $(X_n - X_{n-1})/X_n$ with $X_n$ the average of the current window at time step $n$ and $X_{n-1}$ the average of the previous window
-2. After taking the long/short position, close it (e.g. sell when long or buy back when short) again after 10 minutes
-3. Assume a fixed commission of \$2, so buying the S&P 500 index twice costs you \$4, selling it 3 times, \$6. Your starting portfolio is $100,000.0
-4. Shorting takes up 50% of the notional value of your portfolio. So when you start with \$100K and short the S&P once when its at \$5000, you are left with \$97.5K to trade with
 
-To check the performance of this strategy we ask you to finish the basics of the simple backtester created in `src/backtesting/backtester.py`.
-We have added further hints on how to structure the project by giving you some structure already but note that this is still very simple.
+## Getting started
 
-We ask you to complete the following tasks:
-1. Fetch 2 weeks of 1-minute interval S&P 500 index and future data
-2. Implement the simple backtester by looping over the fetched dataframes
-   1. Loop over the data in 1 minute steps making sure to update both the future and index data, align the time steps
-3. Implement the necessary functions, objects and classes to complete the backtester
-   1. You cannot use any functions built into Pandas to create statistics, only to store and load data
-4. Track all your trading activity and show a live output of executed trades plus a summary at the end of each day
-5. Compute relevant statistics for the trading strategy after running it on the entire 2 weeks
-6. Create documentation on how to run your code, make sure it runs!
+To make it easy for you to get started with GitLab, here's a list of recommended next steps.
 
-As you will see from these requirements, we have left it open and up to you to define what you are going to build.
-For example the trading strategy statistics, we like to see you do some research and find for yourself what statistics will be useful.
-To give you some direction; at least include the expected profit/loss per trade, number of winners, number of losers, geometric profit/loss per trade etc.
-We also encourage you to expand upon the given structure and requirements yourself to fully showcase your abilities as a Python developer!
+Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
 
-## Requirements
-- Use Python 3.10
-- Use a **private GitHub** repository
-- Document your classes, methods and code in general (use 1 docstring format throughout)
-- Adhere to [PEP8](https://peps.python.org/pep-0008/) standards
-- Implement all methods to compute statistics for the strategy yourself without external packages
-- Use Object-Oriented Programming (OOP)
-- Add time and memory complexity estimates for the strategy related statistics
+## Add your files
 
-## Evaluation Criteria
-- Code design & structure
-- Documentation
-- Performance of code 
-- Knowledge of latest Python best practices
+- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
+- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
 
-## Submission
-When done, please add `gijspaardekooper` as a user to your **GitHub** repo and send an email to gijs.paardekooper@crossoptions.nl with the subject 'Case Submission Python Software Engineer - November 2024'.
-Make sure to merge branches to the `main` branch before the deadline as we will be taking the last commit before then as the one to base our evaluation on.
-
-## Getting Started
-### 1. Setting up the environment
-To get started on the assigment, you will need the following installed on your PC:
-- [Python 3.10](https://www.python.org/downloads/)
-- [Poetry](https://python-poetry.org/docs/#installing-with-the-official-installer): package manager for Python to ensure consistency in package versions
-
-NOTE: on some Windows systems using Poetry can be tricky, in that case just directly install the Python packages in the `tool.poetry.dependencies` section of the `pyproject.toml` file (skipping `pyhton`).
-
-Then we want to create and activate a new virtual environment (commands are for Unix systems, change for Windows accordingly):
-```shell
-python3.10 -m venv .venv3.10
-source ./.venv3.10/bin/activate
-poetry install --sync
+```
+cd existing_repo
+git remote add origin https://gitlab.com/b00789448/crossoptionsassessment.git
+git branch -M main
+git push -uf origin main
 ```
 
-### 2. Verify Installation
-You can verify if the setup was successfull by running `poetry run python scripts/yfinance_1min_data_example.py` which should create two CSV files in the `data/` folder.
+## Integrate with your tools
 
-The `yfinance_1min_data_example.py` script inside `scripts/` shows a basic example of fetching data using the `yfinance` package.
-Note that `^GSPC` is the ticker symbol used to denote the S&P 500 **Index** on Yahoo Finance, whereas the ticker symbol `ES=F` denotes the S&P 500 **Future**.
+- [ ] [Set up project integrations](https://gitlab.com/b00789448/crossoptionsassessment/-/settings/integrations)
 
-### 3. Good Luck!
-Spend some time carefully going over the details of this case, researching unknown terms and then start designing your solution!
-The case has specifically been created to be open to own ideas and extra features, if you have an idea that would improve the trading strategy or code, we encourage you to add this.
+## Collaborate with your team
+
+- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
+- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
+- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
+- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
+- [ ] [Set auto-merge](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
+
+## Test and Deploy
+
+Use the built-in continuous integration in GitLab.
+
+- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
+- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing (SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
+- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
+- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
+- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+
+***
+
+# Editing this README
+
+When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thanks to [makeareadme.com](https://www.makeareadme.com/) for this template.
+
+## Suggestions for a good README
+
+Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+
+## Name
+Choose a self-explaining name for your project.
+
+## Description
+Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+
+## Badges
+On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+
+## Visuals
+Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+
+## Installation
+Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+
+## Usage
+Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+
+## Support
+Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+
+## Roadmap
+If you have ideas for releases in the future, it is a good idea to list them in the README.
+
+## Contributing
+State if you are open to contributions and what your requirements are for accepting them.
+
+For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+
+You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+
+## Authors and acknowledgment
+Show your appreciation to those who have contributed to the project.
+
+## License
+For open source projects, say how it is licensed.
+
+## Project status
+If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
