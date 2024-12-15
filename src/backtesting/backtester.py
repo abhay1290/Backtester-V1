@@ -18,7 +18,7 @@ class Backtester:
     taken 1 minute into the future.
     """
 
-    def __init__(self, strategy: Strategy, data: pd.DataFrame, initial_capital: float = 100000.0, commission: float = 2.0, close_time_delta: int = 10):
+    def __init__(self, strategy: Strategy, data: pd.DataFrame, initial_capital: float, commission: float, close_time_delta: int):
         self.strategy = strategy
         self.data = data
         self.capital = initial_capital
@@ -176,7 +176,7 @@ class Backtester:
                 print(i)
 
         except Exception as e:
-            print(f"Error while printing performance metrics: {e}")
+            logging.error(f"Error while printing performance metrics: {e}")
 
 if __name__ == "__main__":
 
@@ -192,6 +192,6 @@ if __name__ == "__main__":
     spx_data = spx_data_1m[['Close']]
     spx_future_data = spx_future_data_1m[['Close']]
 
-    backtester = Backtester(MomentumStrategy(spx_future_data, 0.0003, 5),spx_data)
+    backtester = Backtester(MomentumStrategy(spx_future_data, 0.0003, 5),spx_data,100000, 2.0, 10)
     backtester.run()
     backtester.print_performance()
