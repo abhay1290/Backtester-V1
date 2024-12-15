@@ -1,5 +1,6 @@
 import logging
 import numpy as np
+from matplotlib.pyplot import title
 from numpy import mean, std
 from typing import List, Dict
 from tabulate import tabulate
@@ -7,7 +8,9 @@ from tabulate import tabulate
 class PerformanceMetrics:
     """Handles calculation and reporting of backtest performance metrics."""
 
-    def __init__(self, initial_capital: float, capital: float, trade_returns: List[float], trade_returns_percentage: List[float], commission: float, trade_log: List[Dict], risk_free_rate: float = 0.02):
+    def __init__(self, initial_capital: float, capital: float, trade_returns: List[float],
+                 trade_returns_percentage: List[float], commission: float, trade_log: List[Dict],
+                 open_positions: List[Dict], risk_free_rate: float = 0.02):
         self.initial_capital = initial_capital
         self.final_capital = capital
         self.trade_returns = trade_returns
@@ -15,6 +18,7 @@ class PerformanceMetrics:
         self.commission = commission
         self.trade_log = trade_log
         self.risk_free_rate = risk_free_rate
+        self.open_positions = open_positions
 
     def calculate_metrics(self) -> Dict:
         """Calculate and return all performance metrics."""
@@ -45,6 +49,7 @@ class PerformanceMetrics:
                 "gross_loss": gross_loss,
                 "net_profit": net_profit,
                 "total_trades": total_trades,
+                "total_open_trades": len(self.open_positions),
                 "commission": total_commission,
                 "winners": winners,
                 "losers": losers,
@@ -71,6 +76,7 @@ class PerformanceMetrics:
             print(f"Net Profit (PnL): ${metrics['net_profit']:.2f}")
             print(f"Total Commissions: ${metrics['commission']:.2f}")
             print(f"Total Trades Executed: {metrics['total_trades']}")
+            print(f"Total Open Trades: {metrics['total_open_trades']}")
             print(f"Winners: {metrics['winners']}, Losers: {metrics['losers']}")
             print(f"Biggest Winner ($): {metrics['biggest_winner']:.2f}")
             print(f"Biggest Losser ($): {metrics['biggest_losser']:.2f}")
@@ -79,6 +85,9 @@ class PerformanceMetrics:
             print(f"Sortino Ratio: {metrics['sortino_ratio']:.2f}" if metrics['sortino_ratio'] else "Sortino Ratio: N/A")
             print(f"Volatility: {metrics['volatility']:.2f}")
 
+            print("Open_Positions:")
+            print(tabulate(self.open_positions, headers="keys"))
+            print("Trade_Log:")
             print(tabulate(self.trade_log, headers="keys"))
 
         except Exception as e:

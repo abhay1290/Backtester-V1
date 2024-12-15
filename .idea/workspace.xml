@@ -4,15 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e6082b63-e430-4f4a-a647-1bd0542e4ea6" name="Changes" comment="few changes">
-      <change afterPath="$PROJECT_DIR$/src/backtesting/PerformanceMetrics.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/backtesting/performance_metrics_unit_tests.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/backtesting/strategies/momentum_strategy_unit_tests.py" afterDir="false" />
+    <list default="true" id="e6082b63-e430-4f4a-a647-1bd0542e4ea6" name="Changes" comment="fix">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/poetry.lock" beforeDir="false" afterPath="$PROJECT_DIR$/poetry.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pyproject.toml" beforeDir="false" afterPath="$PROJECT_DIR$/pyproject.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/backtesting/PerformanceMetrics.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/backtesting/PerformanceMetrics.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/backtesting/backtester.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/backtesting/backtester.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/backtesting/strategies/momentum_strategy.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/backtesting/strategies/momentum_strategy.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,7 +56,7 @@
     "settings.editor.selected.configurable": "org.jetbrains.plugins.gitlab.GitLabSettingsConfigurable"
   }
 }]]></component>
-  <component name="RunManager" selected="Python tests.Python tests for performance_metrics_unit_tests.TestPerformanceMetrics">
+  <component name="RunManager" selected="Python.backtester">
     <configuration name="backtester" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="CrossOptionsAssessment" />
       <option name="ENV_FILES" value="" />
@@ -146,9 +141,9 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.backtester" />
         <item itemvalue="Python tests.Python tests for performance_metrics_unit_tests.TestPerformanceMetrics" />
         <item itemvalue="Python tests.Python tests for performance_metrics_unit_tests.TestPerformanceMetrics.test_calculate_metrics" />
-        <item itemvalue="Python.backtester" />
         <item itemvalue="Python tests.Python tests for performance_metrics_unit_tests.TestPerformanceMetrics.test_invalid_inputs" />
         <item itemvalue="Python tests.Python tests for performance_metrics_unit_tests.TestPerformanceMetrics.test_print_metrics" />
       </list>
@@ -194,7 +189,15 @@
       <option name="project" value="LOCAL" />
       <updated>1734288138858</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="fix">
+      <option name="closed" value="true" />
+      <created>1734297462515</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1734297462515</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -212,6 +215,28 @@
     <MESSAGE value="read me" />
     <MESSAGE value="initial commit for assessment" />
     <MESSAGE value="few changes" />
-    <option name="LAST_COMMIT_MESSAGE" value="few changes" />
+    <MESSAGE value="fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/src/backtesting/PerformanceMetrics.py</url>
+          <line>31</line>
+          <option name="timeStamp" value="16" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/src/backtesting/PerformanceMetrics.py</url>
+          <line>32</line>
+          <option name="timeStamp" value="17" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/src/backtesting/PerformanceMetrics.py</url>
+          <line>28</line>
+          <option name="timeStamp" value="22" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
