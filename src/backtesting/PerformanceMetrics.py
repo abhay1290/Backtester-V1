@@ -79,7 +79,7 @@ class PerformanceMetrics:
             print(f"Sortino Ratio: {metrics['sortino_ratio']:.2f}" if metrics['sortino_ratio'] else "Sortino Ratio: N/A")
             print(f"Volatility: {metrics['volatility']:.2f}")
 
-            print(print(tabulate(self.trade_log, headers="keys")))
+            print(tabulate(self.trade_log, headers="keys"))
 
         except Exception as e:
             logging.error(f"Error while printing performance metrics: {e}")
