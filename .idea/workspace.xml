@@ -4,10 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e6082b63-e430-4f4a-a647-1bd0542e4ea6" name="Changes" comment="initial commit for assessment">
-      <change afterPath="$PROJECT_DIR$/src/backtesting/Statistics.py" afterDir="false" />
+    <list default="true" id="e6082b63-e430-4f4a-a647-1bd0542e4ea6" name="Changes" comment="few changes">
+      <change afterPath="$PROJECT_DIR$/src/backtesting/PerformanceMetrics.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/backtesting/performance_metrics_unit_tests.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/backtesting/strategies/momentum_strategy_unit_tests.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/poetry.lock" beforeDir="false" afterPath="$PROJECT_DIR$/poetry.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pyproject.toml" beforeDir="false" afterPath="$PROJECT_DIR$/pyproject.toml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/backtesting/backtester.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/backtesting/backtester.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/backtesting/strategies/momentum_strategy.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/backtesting/strategies/momentum_strategy.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,6 +23,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Python Script" />
+        <option value="Python Unit Test" />
       </list>
     </option>
   </component>
@@ -35,6 +41,18 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Python tests.Python tests for momentum_strategy_unit_tests.TestMomentumStrategy.executor": "Run",
+    "Python tests.Python tests for momentum_strategy_unit_tests.TestMomentumStrategy.test_calculate_momentum.executor": "Debug",
+    "Python tests.Python tests for momentum_strategy_unit_tests.TestMomentumStrategy.test_initialization.executor": "Run",
+    "Python tests.Python tests for momentum_strategy_unit_tests.TestMomentumStrategy.test_invalid_initialization.executor": "Run",
+    "Python tests.Python tests for momentum_strategy_unit_tests.TestMomentumStrategy.test_should_buy.executor": "Run",
+    "Python tests.Python tests for momentum_strategy_unit_tests.TestMomentumStrategy.test_should_sell.executor": "Run",
+    "Python tests.Python tests for performance_metrics_unit_tests.TestPerformanceMetrics.executor": "Run",
+    "Python tests.Python tests for performance_metrics_unit_tests.TestPerformanceMetrics.test_calculate_metrics.executor": "Run",
+    "Python tests.Python tests for performance_metrics_unit_tests.TestPerformanceMetrics.test_invalid_inputs.executor": "Run",
+    "Python tests.Python tests for performance_metrics_unit_tests.TestPerformanceMetrics.test_print_metrics.executor": "Run",
+    "Python tests.Python tests for test_momentum_strategy.TestMomentumStrategy.executor": "Run",
+    "Python tests.Python tests in momentum_strategy_unit_tests.py.executor": "Run",
     "Python.backtester.executor": "Run",
     "Python.clean_data.executor": "Run",
     "Python.yfinance_1min_data_example.executor": "Run",
@@ -43,7 +61,7 @@
     "settings.editor.selected.configurable": "org.jetbrains.plugins.gitlab.GitLabSettingsConfigurable"
   }
 }]]></component>
-  <component name="RunManager" selected="Python.backtester">
+  <component name="RunManager" selected="Python tests.Python tests for performance_metrics_unit_tests.TestPerformanceMetrics">
     <configuration name="backtester" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="CrossOptionsAssessment" />
       <option name="ENV_FILES" value="" />
@@ -66,55 +84,73 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="clean_data" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="Python tests for performance_metrics_unit_tests.TestPerformanceMetrics" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
       <module name="CrossOptionsAssessment" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/scripts" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/backtesting" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/scripts/clean_data.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;performance_metrics_unit_tests.TestPerformanceMetrics&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
-    <configuration name="yfinance_1min_data_example" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="Python tests for performance_metrics_unit_tests.TestPerformanceMetrics.test_calculate_metrics" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
       <module name="CrossOptionsAssessment" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/scripts" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/backtesting" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/scripts/yfinance_1min_data_example.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;performance_metrics_unit_tests.TestPerformanceMetrics.test_calculate_metrics&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Python tests for performance_metrics_unit_tests.TestPerformanceMetrics.test_invalid_inputs" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="CrossOptionsAssessment" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/backtesting" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;performance_metrics_unit_tests.TestPerformanceMetrics.test_invalid_inputs&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Python tests for performance_metrics_unit_tests.TestPerformanceMetrics.test_print_metrics" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="CrossOptionsAssessment" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/backtesting" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;performance_metrics_unit_tests.TestPerformanceMetrics.test_print_metrics&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python tests.Python tests for performance_metrics_unit_tests.TestPerformanceMetrics" />
+        <item itemvalue="Python tests.Python tests for performance_metrics_unit_tests.TestPerformanceMetrics.test_calculate_metrics" />
         <item itemvalue="Python.backtester" />
-        <item itemvalue="Python.yfinance_1min_data_example" />
-        <item itemvalue="Python.clean_data" />
+        <item itemvalue="Python tests.Python tests for performance_metrics_unit_tests.TestPerformanceMetrics.test_invalid_inputs" />
+        <item itemvalue="Python tests.Python tests for performance_metrics_unit_tests.TestPerformanceMetrics.test_print_metrics" />
       </list>
     </recent_temporary>
   </component>
@@ -150,7 +186,15 @@
       <option name="project" value="LOCAL" />
       <updated>1734262438940</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="few changes">
+      <option name="closed" value="true" />
+      <created>1734288138858</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1734288138858</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -167,6 +211,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="read me" />
     <MESSAGE value="initial commit for assessment" />
-    <option name="LAST_COMMIT_MESSAGE" value="initial commit for assessment" />
+    <MESSAGE value="few changes" />
+    <option name="LAST_COMMIT_MESSAGE" value="few changes" />
   </component>
 </project>

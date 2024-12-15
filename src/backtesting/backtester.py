@@ -4,6 +4,7 @@ import numpy as np
 from numpy import mean, std
 from pandas import Timestamp
 
+from src.backtesting.PerformanceMetrics import PerformanceMetrics
 from src.backtesting.strategies.momentum_strategy import MomentumStrategy
 from src.backtesting.strategies.base_strategy import Strategy
 from typing import List, Dict
@@ -21,12 +22,14 @@ class Backtester:
     def __init__(self, strategy: Strategy, data: pd.DataFrame, initial_capital: float, commission: float, close_time_delta: int):
         self.strategy = strategy
         self.data = data
+        self.initial_capital = initial_capital
         self.capital = initial_capital
         self.commission = commission
         self.trade_log: List[Dict] = []
         self.current_index = None
         self.position_close_time = []
-        self.gross_trade_returns = []
+        self.trade_returns = []
+        self.trade_returns_percentage =[]
         self.close_time_delta = close_time_delta
 
     def run(self) -> None:
@@ -85,11 +88,13 @@ class Backtester:
             price = float(self.data.loc[self.current_index].iloc[0])
             if action == 'BUY':
                 self.capital -=  (price * quantity) + self.commission   # no of share bought = 1
-                logging.info(f"Opened BUY position at {price:.2f}, Quantity: {quantity}")
+                print(f"Opened BUY position at {self.current_index}, {price:.2f}, Quantity: {quantity}")
+                logging.info(f"Opened BUY position at {self.current_index}, {price:.2f}, Quantity: {quantity}")
 
             elif action == 'SELL':
                 self.capital += (price * quantity) - self.commission   # no of share sold = 1
-                logging.info(f"Opened SELL position at {price:.2f}, Quantity: {quantity}")
+                print(f"Opened SELL position at {self.current_index}, {price:.2f}, Quantity: {quantity}")
+                logging.info(f"Opened SELL position at {self.current_index}, {price:.2f}, Quantity: {quantity}")
 
             trade = {
                 'time': self.current_index,
@@ -126,13 +131,17 @@ class Backtester:
             if action == 'BUY':
                 self.capital += (close_price * quantity) - self.commission
                 self.trade_log.append({'time': close_time, 'action': 'CLOSE', 'price': close_price})
-                self.gross_trade_returns.append(((close_price - open_trade_price) * 100)/open_trade_price)
+                self.trade_returns.append(close_price - open_trade_price)
+                self.trade_returns_percentage.append(((close_price - open_trade_price) * 100) / open_trade_price)
+                print(f"Closed BUY position at {close_time}, Price: {close_price:.2f}")
                 logging.info(f"Closed BUY position at {close_time}, Price: {close_price:.2f}")
 
             elif action == 'SELL':
                 self.capital -= (close_price * quantity) + self.commission
                 self.trade_log.append({'time': close_time, 'action': 'CLOSE', 'price': close_price})
-                self.gross_trade_returns.append(((open_trade_price - close_price) * 100)/open_trade_price)
+                self.trade_returns.append(open_trade_price - close_price)
+                self.trade_returns_percentage.append(((open_trade_price - close_price) * 100) / open_trade_price)
+                print(f"Closed SELL position at {close_time}, Price: {close_price:.2f}")
                 logging.info(f"Closed SELL position at {close_time}, Price: {close_price:.2f}")
 
         except KeyError:
@@ -142,41 +151,16 @@ class Backtester:
 
 
     def print_performance(self) -> None:
-        """Print performance metrics."""
-        try:
-            starting_balance = 100000
-            final_balance = self.capital
-            pnl = final_balance - starting_balance
-            total_trades = len(self.trade_log)
-            commission = total_trades * self.commission
-            winners = len([trade for trade in self.gross_trade_returns if trade > 0])
-            biggest_winner = max(self.gross_trade_returns)
-            biggest_losser = min(self.gross_trade_returns)
-            losers = len([trade for trade in self.gross_trade_returns if trade < 0])
-            gross_returns = self.gross_trade_returns
-            formatted_gross_returns = [float(f"{value:.4f}") for value in gross_returns]
-            excess_return = np.array(gross_returns) - 0.02
-            formatted_excess_returns = [float(f"{value:.4f}") for value in excess_return]
-            sharpe_ratio = mean(excess_return)/ std(excess_return)
-            trade_log = self.trade_log
-
-            print(f"Starting Portfolio Value: ${starting_balance:.2f}")
-            print(f"Final Portfolio Value: ${final_balance:.2f}")
-            print(f"pnl: {pnl:.2f}")
-            print(f"Gross Trading Return: {sum(gross_returns):.2f}")
-            print(f"Commissions: {commission:.2f}")
-            print(f"Total Trades Executed: {total_trades}")
-            print(f"Winners: {winners}, Losers: {losers}")
-            print(f"Biggest Winner(%): {biggest_winner:.4f}")
-            print(f"Biggest Losser(%): {biggest_losser:.4f}")
-            print(f"Gross Return(%): {formatted_gross_returns}")
-            print(f"Excess Return(assuming 2% risk free rate): {formatted_excess_returns}")
-            print(f"Sharpe Ratio: {sharpe_ratio:.2f}")
-            for i in trade_log:
-                print(i)
-
-        except Exception as e:
-            logging.error(f"Error while printing performance metrics: {e}")
+        """Delegate performance printing to PerformanceMetrics."""
+        metrics = PerformanceMetrics(
+            initial_capital=self.initial_capital,
+            capital=self.capital,
+            trade_returns=self.trade_returns,
+            trade_returns_percentage=self.trade_returns_percentage,
+            commission=self.commission,
+            trade_log=self.trade_log,
+        )
+        metrics.print_metrics()
 
 if __name__ == "__main__":
 
