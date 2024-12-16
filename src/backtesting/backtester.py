@@ -84,7 +84,8 @@ class Backtester:
                     logging.error(f"Error closing position at {self.current_index}: {e}", exc_info=True)
                     continue
 
-            if len(self.pending_trades)>0 and self.pending_trades[0]['time'].date() == self.current_date - pd.Timedelta(days=1):
+            if len(self.pending_trades)>0 and self.pending_trades[0]['time'].date() != self.current_date:
+                    #- pd.Timedelta(days=1)):
                 try:
                     self.settle_pending_positions()
                 except Exception as e:

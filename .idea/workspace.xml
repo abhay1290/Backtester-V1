@@ -4,8 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e6082b63-e430-4f4a-a647-1bd0542e4ea6" name="Changes" comment="add documentation">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="e6082b63-e430-4f4a-a647-1bd0542e4ea6" name="Changes" comment="add daily statistics">
       <change beforePath="$PROJECT_DIR$/src/backtesting/backtester.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/backtesting/backtester.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -64,7 +63,7 @@
     "Python tests.Python tests for performance_metrics_unit_tests.TestPerformanceMetrics.test_print_metrics.executor": "Run",
     "Python tests.Python tests for test_momentum_strategy.TestMomentumStrategy.executor": "Run",
     "Python tests.Python tests in momentum_strategy_unit_tests.py.executor": "Run",
-    "Python.backtester.executor": "Debug",
+    "Python.backtester.executor": "Run",
     "Python.clean_data.executor": "Run",
     "Python.yfinance_1min_data_example.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
@@ -277,7 +276,15 @@
       <option name="project" value="LOCAL" />
       <updated>1734321201182</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="add daily statistics">
+      <option name="closed" value="true" />
+      <created>1734371609085</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1734371609085</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -304,7 +311,8 @@
     <MESSAGE value="add logging msg" />
     <MESSAGE value="fixes for Inadequate capital handling" />
     <MESSAGE value="add documentation" />
-    <option name="LAST_COMMIT_MESSAGE" value="add documentation" />
+    <MESSAGE value="add daily statistics" />
+    <option name="LAST_COMMIT_MESSAGE" value="add daily statistics" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -316,24 +324,19 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/src/backtesting/backtester.py</url>
-          <line>385</line>
-          <option name="timeStamp" value="26" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/src/backtesting/backtester.py</url>
-          <line>366</line>
+          <line>362</line>
           <option name="timeStamp" value="27" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/src/backtesting/backtester.py</url>
-          <line>94</line>
+          <line>95</line>
           <option name="timeStamp" value="31" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <condition expression="self.current_index == Timestamp('15:59:00')" language="Python" />
+          <condition expression="self.current_index == Timestamp('2024-12-02 15:59:00')" language="Python" />
           <url>file://$PROJECT_DIR$/src/backtesting/backtester.py</url>
-          <line>93</line>
-          <option name="timeStamp" value="32" />
+          <line>94</line>
+          <option name="timeStamp" value="36" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
