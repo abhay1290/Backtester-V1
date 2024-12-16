@@ -112,18 +112,19 @@ class Backtester:
             price = float(self.data.loc[self.current_index].iloc[0])
             if action == 'BUY':
                 self.capital -=  (price * quantity) + self.commission   # no of share bought = 1
-                print(f"Opened BUY position at {self.current_index}, {price:.2f}, Quantity: {quantity}")
-                logging.info(f"Opened BUY position at {self.current_index}, {price:.2f}, Quantity: {quantity}")
+                print(f"Opened BUY position at {self.current_index}, {price:.2f}, Quantity: {quantity}, Capital: {self.capital:.2f}")
+                logging.info(f"Opened BUY position at {self.current_index}, {price:.2f}, Quantity: {quantity}, Capital: {self.capital:.2f}")
 
             elif action == 'SELL':
                 self.capital += (price * quantity) - self.commission   # no of share sold = 1
-                print(f"Opened SELL position at {self.current_index}, {price:.2f}, Quantity: {quantity}")
-                logging.info(f"Opened SELL position at {self.current_index}, {price:.2f}, Quantity: {quantity}")
+                print(f"Opened SELL position at {self.current_index}, {price:.2f}, Quantity: {quantity}, Capital: {self.capital:.2f}")
+                logging.info(f"Opened SELL position at {self.current_index}, {price:.2f}, Quantity: {quantity}, Capital: {self.capital:.2f}")
 
             trade = {
                 'time': self.current_index,
                 'action': action,
-                'price': price
+                'price': price,
+                'capital': self.capital
             }
 
             self.trade_log.append(trade)
@@ -193,19 +194,19 @@ class Backtester:
         try:
             if action == 'BUY':
                 self.capital += (close_price * quantity) - self.commission
-                self.trade_log.append({'time': close_time, 'action': 'CLOSE', 'price': close_price})
+                self.trade_log.append({'time': close_time, 'action': 'CLOSE', 'price': close_price, 'capital': self.capital})
                 self.trade_returns.append(close_price - open_trade_price)
                 self.trade_returns_percentage.append(((close_price - open_trade_price) * 100) / open_trade_price)
-                print(f"Closed BUY position at {close_time}, Price: {close_price:.2f}")
-                logging.info(f"Closed BUY position at {close_time}, Price: {close_price:.2f}")
+                print(f"Closed BUY position at {close_time}, Price: {close_price:.2f}, Capital: {self.capital:.2f}")
+                logging.info(f"Closed BUY position at {close_time}, Price: {close_price:.2f}, Capital: {self.capital:.2f}")
 
             elif action == 'SELL':
                 self.capital -= (close_price * quantity) + self.commission
-                self.trade_log.append({'time': close_time, 'action': 'CLOSE', 'price': close_price})
+                self.trade_log.append({'time': close_time, 'action': 'CLOSE', 'price': close_price, 'capital': self.capital})
                 self.trade_returns.append(open_trade_price - close_price)
                 self.trade_returns_percentage.append(((open_trade_price - close_price) * 100) / open_trade_price)
-                print(f"Closed SELL position at {close_time}, Price: {close_price:.2f}")
-                logging.info(f"Closed SELL position at {close_time}, Price: {close_price:.2f}")
+                print(f"Closed SELL position at {close_time}, Price: {close_price:.2f}, Capital: {self.capital:.2f}")
+                logging.info(f"Closed SELL position at {close_time}, Price: {close_price:.2f}, Capital: {self.capital:.2f}")
             else:
                 raise ValueError(f"Unexpected action: {action}")
 

@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e6082b63-e430-4f4a-a647-1bd0542e4ea6" name="Changes" comment="fixing unit tests">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/backtesting/PerformanceMetrics.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/backtesting/PerformanceMetrics.py" afterDir="false" />
+    <list default="true" id="e6082b63-e430-4f4a-a647-1bd0542e4ea6" name="Changes" comment="more fixes">
       <change beforePath="$PROJECT_DIR$/src/backtesting/backtester.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/backtesting/backtester.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -143,9 +141,9 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.backtester" />
+        <item itemvalue="Python tests.Python tests for momentum_strategy_unit_tests.TestMomentumStrategy" />
         <item itemvalue="Python tests.Python tests for backtester_unit_tests.TestBacktester" />
         <item itemvalue="Python tests.Python tests for performance_metrics_unit_tests.TestPerformanceMetrics" />
-        <item itemvalue="Python tests.Python tests for momentum_strategy_unit_tests.TestMomentumStrategy" />
         <item itemvalue="Python tests.Python tests for performance_metrics_unit_tests.TestPerformanceMetrics.test_calculate_metrics" />
       </list>
     </recent_temporary>
@@ -214,7 +212,15 @@
       <option name="project" value="LOCAL" />
       <updated>1734307339438</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="more fixes">
+      <option name="closed" value="true" />
+      <created>1734308814745</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1734308814745</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -235,14 +241,15 @@
     <MESSAGE value="fix" />
     <MESSAGE value="fixes for carry over positions" />
     <MESSAGE value="fixing unit tests" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixing unit tests" />
+    <MESSAGE value="more fixes" />
+    <option name="LAST_COMMIT_MESSAGE" value="more fixes" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/src/backtesting/PerformanceMetrics.py</url>
-          <line>28</line>
+          <line>29</line>
           <option name="timeStamp" value="22" />
         </line-breakpoint>
       </breakpoints>
