@@ -16,7 +16,8 @@ class Backtester:
     taken 1 minute into the future.
     """
 
-    def __init__(self, strategy: Strategy, data: pd.DataFrame, initial_capital: float, commission: float, close_time_delta: int, exchange_close_time: Timestamp = Timestamp("16:00:00")):
+    def __init__(self, strategy: Strategy, data: pd.DataFrame, initial_capital: float,
+                 commission: float, close_time_delta: int):
         self.strategy = strategy
         self.data = data
         self.initial_capital = initial_capital
@@ -29,8 +30,9 @@ class Backtester:
         self.trade_returns = []
         self.trade_returns_percentage =[]
         self.close_time_delta = close_time_delta
-        self.exchange_close_time = exchange_close_time
+        self.exchange_close_time = Timestamp("16:00:00")
         self.pending_trades: List[Dict] = []
+        self.short_ratio = 0.5
 
     def run(self) -> None:
         """Run the backtest."""
@@ -111,23 +113,34 @@ class Backtester:
         try:
             price = float(self.data.loc[self.current_index].iloc[0])
             if action == 'BUY':
-                self.capital -=  (price * quantity) + self.commission   # no of share bought = 1
-                print(f"Opened BUY position at {self.current_index}, {price:.2f}, Quantity: {quantity}, Capital: {self.capital:.2f}")
-                logging.info(f"Opened BUY position at {self.current_index}, {price:.2f}, Quantity: {quantity}, Capital: {self.capital:.2f}")
+                if self.capital - (price * quantity) - self.commission > 0:  # capital is available to make the trade
+                    self.capital -= (price * quantity) + self.commission   # no of share bought = 1
+                    print(f"Opened BUY position at {self.current_index}, {price:.2f}, Quantity: {quantity}, Capital: {self.capital:.2f}")
+                    logging.info(f"Opened BUY position at {self.current_index}, {price:.2f}, Quantity: {quantity}, Capital: {self.capital:.2f}")
+
+                    trade = {
+                        'time': self.current_index,
+                        'action': action,
+                        'price': price,
+                        'capital': self.capital
+                    }
+
+                    self.trade_log.append(trade)
 
             elif action == 'SELL':
-                self.capital += (price * quantity) - self.commission   # no of share sold = 1
-                print(f"Opened SELL position at {self.current_index}, {price:.2f}, Quantity: {quantity}, Capital: {self.capital:.2f}")
-                logging.info(f"Opened SELL position at {self.current_index}, {price:.2f}, Quantity: {quantity}, Capital: {self.capital:.2f}")
+                if self.capital - (price * quantity * self.short_ratio) - self.commission > 0:  # capital is available to make the trade
+                    self.capital -= (price * quantity * self.short_ratio) + self.commission   # no of share sold = 1
+                    print(f"Opened SELL position at {self.current_index}, {price:.2f}, Quantity: {quantity}, Capital: {self.capital:.2f}")
+                    logging.info(f"Opened SELL position at {self.current_index}, {price:.2f}, Quantity: {quantity}, Capital: {self.capital:.2f}")
 
-            trade = {
-                'time': self.current_index,
-                'action': action,
-                'price': price,
-                'capital': self.capital
-            }
+                    trade = {
+                        'time': self.current_index,
+                        'action': action,
+                        'price': price,
+                        'capital': self.capital
+                    }
 
-            self.trade_log.append(trade)
+                    self.trade_log.append(trade)
 
         except KeyError:
             logging.error(f"Error: Data missing for index {self.current_index} to open {action} position.")
@@ -201,7 +214,7 @@ class Backtester:
                 logging.info(f"Closed BUY position at {close_time}, Price: {close_price:.2f}, Capital: {self.capital:.2f}")
 
             elif action == 'SELL':
-                self.capital -= (close_price * quantity) + self.commission
+                self.capital += (close_price * quantity * self.short_ratio) - self.commission
                 self.trade_log.append({'time': close_time, 'action': 'CLOSE', 'price': close_price, 'capital': self.capital})
                 self.trade_returns.append(open_trade_price - close_price)
                 self.trade_returns_percentage.append(((open_trade_price - close_price) * 100) / open_trade_price)
