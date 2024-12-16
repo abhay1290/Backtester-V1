@@ -1,6 +1,7 @@
 import logging
+from email.policy import default
+
 import numpy as np
-from matplotlib.pyplot import title
 from numpy import mean, std
 from typing import List, Dict
 from tabulate import tabulate
@@ -31,16 +32,16 @@ class PerformanceMetrics:
 
             winners = len([trade for trade in self.trade_returns if trade > 0])
             losers = len([trade for trade in self.trade_returns if trade < 0])
-            biggest_winner = max(self.trade_returns, default=0)
-            biggest_losser = min(self.trade_returns, default=0)
+            biggest_winner = max(max(self.trade_returns,default=0),0)
+            biggest_losser = min(min(self.trade_returns,default=0),0)
 
-            risk_reward_ratio = abs((gross_profit / winners) / (gross_loss / losers)) if losers > 0 and gross_loss != 0 else None
+            risk_reward_ratio = abs((gross_profit / winners) / (gross_loss / losers)) if (losers > 0 and gross_loss != 0) or (winners > 0 and gross_profit != 0) else 0.0
             gross_returns = self.trade_returns_percentage
-            excess_return = np.array(gross_returns) - self.risk_free_rate  # Assuming a 2% risk-free rate
-            sharpe_ratio = mean(excess_return) / std(excess_return) if std(excess_return) != 0 else None
-            downside_returns = [ret for ret in excess_return if ret < 0]
-            sortino_ratio = mean(excess_return) / std(downside_returns) if std(downside_returns) != 0 else None
-            volatility = std(gross_returns)
+            excess_return = np.array(gross_returns) - self.risk_free_rate if len(gross_returns)>0 else []  # Assuming a 2% risk-free rate
+            sharpe_ratio = mean(excess_return) / std(excess_return) if (std(excess_return) != 0 or len(excess_return)!=0) else 0.0
+            downside_returns = [ret for ret in excess_return if ret < 0] if len(excess_return)>0 else []
+            sortino_ratio = mean(excess_return) / std(downside_returns) if (std(downside_returns) != 0 or (len(excess_return)!=0) or (len(downside_returns)!=0)) else 0.0
+            volatility = std(gross_returns) if len(gross_returns)>0 else 0.0
 
             return {
                 "starting_balance": self.initial_capital,

@@ -241,6 +241,6 @@ if __name__ == "__main__":
     spx_data = spx_data_1m[['Close']]
     spx_future_data = spx_future_data_1m[['Close']]
 
-    backtester = Backtester(MomentumStrategy(spx_future_data, 0.0001, 5),spx_data,100000, 2.0, 10)
+    backtester = Backtester(MomentumStrategy(spx_future_data, 0.0003, 5),spx_data,100000, 2.0, 10)
     backtester.run()
     backtester.print_performance()

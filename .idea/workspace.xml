@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e6082b63-e430-4f4a-a647-1bd0542e4ea6" name="Changes" comment="fixes for carry over positions">
+    <list default="true" id="e6082b63-e430-4f4a-a647-1bd0542e4ea6" name="Changes" comment="fixing unit tests">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/backtesting/performance_metrics_unit_tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/backtesting/performance_metrics_unit_tests.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/backtesting/PerformanceMetrics.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/backtesting/PerformanceMetrics.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/backtesting/backtester.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/backtesting/backtester.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,6 +36,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Python tests.Python tests for backtester_unit_tests.TestBacktester.executor": "Run",
     "Python tests.Python tests for momentum_strategy_unit_tests.TestMomentumStrategy.executor": "Run",
     "Python tests.Python tests for momentum_strategy_unit_tests.TestMomentumStrategy.test_calculate_momentum.executor": "Debug",
     "Python tests.Python tests for momentum_strategy_unit_tests.TestMomentumStrategy.test_initialization.executor": "Run",
@@ -55,7 +57,7 @@
     "settings.editor.selected.configurable": "org.jetbrains.plugins.gitlab.GitLabSettingsConfigurable"
   }
 }]]></component>
-  <component name="RunManager" selected="Python tests.Python tests for performance_metrics_unit_tests.TestPerformanceMetrics">
+  <component name="RunManager" selected="Python.backtester">
     <configuration name="backtester" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="CrossOptionsAssessment" />
       <option name="ENV_FILES" value="" />
@@ -76,6 +78,21 @@
       <option name="MODULE_MODE" value="false" />
       <option name="REDIRECT_INPUT" value="false" />
       <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Python tests for backtester_unit_tests.TestBacktester" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="CrossOptionsAssessment" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/backtesting" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;backtester_unit_tests.TestBacktester&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
     <configuration name="Python tests for momentum_strategy_unit_tests.TestMomentumStrategy" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
@@ -123,28 +140,13 @@
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
-    <configuration name="Python tests for performance_metrics_unit_tests.TestPerformanceMetrics.test_invalid_inputs" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
-      <module name="CrossOptionsAssessment" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/backtesting" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;performance_metrics_unit_tests.TestPerformanceMetrics.test_invalid_inputs&quot;" />
-      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
-      <method v="2" />
-    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.backtester" />
+        <item itemvalue="Python tests.Python tests for backtester_unit_tests.TestBacktester" />
         <item itemvalue="Python tests.Python tests for performance_metrics_unit_tests.TestPerformanceMetrics" />
         <item itemvalue="Python tests.Python tests for momentum_strategy_unit_tests.TestMomentumStrategy" />
-        <item itemvalue="Python.backtester" />
         <item itemvalue="Python tests.Python tests for performance_metrics_unit_tests.TestPerformanceMetrics.test_calculate_metrics" />
-        <item itemvalue="Python tests.Python tests for performance_metrics_unit_tests.TestPerformanceMetrics.test_invalid_inputs" />
       </list>
     </recent_temporary>
   </component>
@@ -204,7 +206,15 @@
       <option name="project" value="LOCAL" />
       <updated>1734306934432</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="fixing unit tests">
+      <option name="closed" value="true" />
+      <created>1734307339438</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1734307339438</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -224,21 +234,12 @@
     <MESSAGE value="few changes" />
     <MESSAGE value="fix" />
     <MESSAGE value="fixes for carry over positions" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixes for carry over positions" />
+    <MESSAGE value="fixing unit tests" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixing unit tests" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/src/backtesting/PerformanceMetrics.py</url>
-          <line>31</line>
-          <option name="timeStamp" value="16" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/src/backtesting/PerformanceMetrics.py</url>
-          <line>32</line>
-          <option name="timeStamp" value="17" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/src/backtesting/PerformanceMetrics.py</url>
           <line>28</line>
