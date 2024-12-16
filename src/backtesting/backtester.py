@@ -126,6 +126,10 @@ class Backtester:
                     }
 
                     self.trade_log.append(trade)
+                else:
+                    print(f"Inadequate capital to make the BUY trade at {self.current_index}, {price:.2f}, Quantity: {quantity}")
+                    logging.warning(f"Inadequate capital to make the BUY trade at {self.current_index}, {price:.2f}, Quantity: {quantity}")
+
 
             elif action == 'SELL':
                 if self.capital - (price * quantity * self.short_ratio) - self.commission > 0:  # capital is available to make the trade
@@ -141,6 +145,10 @@ class Backtester:
                     }
 
                     self.trade_log.append(trade)
+                else:
+                    print(f"Inadequate capital to make the SELL trade at {self.current_index}, {price:.2f}, Quantity: {quantity}")
+                    logging.warning(f"Inadequate capital to make the SELL trade at {self.current_index}, {price:.2f}, Quantity: {quantity}")
+
 
         except KeyError:
             logging.error(f"Error: Data missing for index {self.current_index} to open {action} position.")
