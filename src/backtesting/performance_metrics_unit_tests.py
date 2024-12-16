@@ -16,6 +16,10 @@ class TestPerformanceMetrics(unittest.TestCase):
             {"trade_id": 4, "profit": -50},
             {"trade_id": 5, "profit": 250},
         ]
+        self.open_positions = [
+            {"trade_id": 6},
+            {"trade_id": 7}
+        ]
         self.metrics = PerformanceMetrics(
             self.initial_capital,
             self.final_capital,
@@ -23,6 +27,7 @@ class TestPerformanceMetrics(unittest.TestCase):
             self.trade_returns_percentage,
             self.commission,
             self.trade_log,
+            self.open_positions
         )
 
     def test_calculate_metrics(self):
@@ -35,6 +40,7 @@ class TestPerformanceMetrics(unittest.TestCase):
         self.assertEqual(metrics["gross_loss"], -150)  # Sum of negative returns
         self.assertEqual(metrics["net_profit"], 600)  # Gross profit + gross loss
         self.assertEqual(metrics["total_trades"], len(self.trade_log))
+        self.assertEqual(metrics["total_open_trades"], len(self.open_positions))
         self.assertEqual(metrics["commission"], len(self.trade_log) * self.commission)
         self.assertEqual(metrics["winners"], 3)
         self.assertEqual(metrics["losers"], 2)
