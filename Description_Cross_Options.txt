@@ -1,0 +1,52 @@
+# Python Software Engineer Case
+> December 2024, Cross Options
+
+Description:
+
+The following code is the working solution for the creating back testing tool for Momentum Strategy using SPX_Futures data is a signal generator and taking Long/Short positions on the SPX_500 index.
+
+Followed Approach:
+
+1) Firstly, we download the 1m trading data for SPX and SPX_Future indices using Yahoo Finance API. 
+- API only allows downloading data in batches of 7 days, therefore a data chunking approach is followed to retrieve 2 weeks(14days) of data.
+- Also, API only allows time window of last 30 days. 
+- On production environment, we would have continuous running scripts to efficiently download and store the daily data but for this exercise (29th Nov 2024 - 13th Dec 2024) period is considered. 
+- Different periods can be considered by changing the end_date variable in the download script.
+Note - Running the script will overwrite the data in the base path, change the file names to avoid this issue - you will be required to define the new Path for the new data files in the definitions.py. 
+
+2) base_strategy.py is the interface defining buy/sell signals. This is then used to define buy/sell signals for different strategies.
+
+3) momentum_strategy.py contains the implementation for the buy/sell signals based on momentum indicator defined in the calculate_momentum() method.
+	1) initialize the momentum_strategy constructor 
+		- SPX_Futues dataframe with 'Datetime' and 'Close' data columns
+		- threshold for the buy/sell signals (0.0005) in the case
+		- period for calculating the rolling/moving averages in minutes (5 minutes)
+
+4) backtester.py contains the __main__ method to execute the backtesting. Steps needed to run the backtest ->
+	1) initialize the backtester with 
+		- Strategy(Momentum Strategy) 
+		- SPX dataframe with 'Datetime' and 'Close' data columns
+		- initial capital ($)
+		- commission ($)
+		- time after which we need to close the position (minutes)
+
+	2)  call the backtester.run() method to run the backtest which will iterate over each available Datetime entry of the provided SPX dataframe.
+	
+	3) backtester.print_performance() method to provide statistics for the backtest.
+
+5) All trades are executed and trade information is printed out in real time. 
+
+6) If at anytime capital is inadequate to execute the trade, trades will not be executed and warning messages are logged.
+
+7) In the case of traded opened in the exchange_closing_time(16:00:00) - time_delta_to_close_position (10 minutes) window (Eg 15:50:00 - 15:59:00) are referred to as pending trades. 
+
+	Assumption ->
+	- Pending trades are carried forward to the next day and are closed at the first available close price of the following day (ideally 09:30:00).
+
+8) For reliability 
+	- Unit testing has been performed for all the created methods to provide some sense checks on the logic.
+	- Appropriate logging has been provided to catch errors, warning, debug and info level messages.
+	- Try and Exception catch approach is used to ensure functionality is not broken for any missing data, null pointer or extreme edge cases.
+
+
+
