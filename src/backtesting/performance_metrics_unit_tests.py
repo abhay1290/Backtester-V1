@@ -1,5 +1,5 @@
 import unittest
-from src.backtesting.PerformanceMetrics import PerformanceMetrics
+from src.backtesting.performance_metrics import PerformanceMetrics
 
 class TestPerformanceMetrics(unittest.TestCase):
     def setUp(self):

@@ -3,7 +3,7 @@ from abc import ABC, abstractmethod
 from pandas import Timestamp
 
 class Strategy(ABC):
-    """Example strategy interface."""
+    """Strategy interface."""
 
     @abstractmethod
     def should_buy(self, time_index: Timestamp) -> bool:

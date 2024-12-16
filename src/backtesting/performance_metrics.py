@@ -7,11 +7,37 @@ from typing import List, Dict
 from tabulate import tabulate
 
 class PerformanceMetrics:
-    """Handles calculation and reporting of backtest performance metrics."""
+    """
+    Handles the calculation and reporting of backtest performance metrics.
+
+    Attributes:
+        initial_capital (float): The starting capital for the backtest.
+        final_capital (float): The ending capital after the backtest.
+        trade_returns (List[float]): List of absolute returns for each trade.
+        trade_returns_percentage (List[float]): List of percentage returns for each trade.
+        commission (float): The commission cost per trade.
+        trade_log (List[Dict]): Log of all executed trades.
+        open_positions (List[Dict]): List of currently open positions.
+        risk_free_rate (float): The assumed risk-free rate for calculating metrics like Sharpe and Sortino ratios (default 0.02).
+    """
 
     def __init__(self, initial_capital: float, capital: float, trade_returns: List[float],
                  trade_returns_percentage: List[float], commission: float, trade_log: List[Dict],
                  open_positions: List[Dict], risk_free_rate: float = 0.02):
+        """
+        Initialize the performance metrics with relevant backtest data.
+
+        Args:
+            initial_capital (float): The starting capital for the backtest.
+            capital (float): The final capital after the backtest.
+            trade_returns (List[float]): Absolute returns from each trade.
+            trade_returns_percentage (List[float]): Percentage returns from each trade.
+            commission (float): The commission cost per trade.
+            trade_log (List[Dict]): A list of dictionaries representing trade details.
+            open_positions (List[Dict]): A list of dictionaries representing open positions.
+            risk_free_rate (float): The assumed risk-free rate for performance calculations.
+        """
+
         self.initial_capital = initial_capital
         self.final_capital = capital
         self.trade_returns = trade_returns
@@ -22,7 +48,26 @@ class PerformanceMetrics:
         self.open_positions = open_positions
 
     def calculate_metrics(self) -> Dict:
-        """Calculate and return all performance metrics."""
+        """
+        Calculate and return a dictionary of key performance metrics.
+
+        Metrics include:
+            - Starting and final portfolio values.
+            - Gross profit, gross loss, and net profit.
+            - Total trades executed and total open trades.
+            - Commission costs.
+            - Number of winning and losing trades.
+            - Biggest winner and loser in monetary terms.
+            - Risk-reward ratio.
+            - Sharpe and Sortino ratios.
+            - Portfolio volatility.
+
+        Returns:
+            Dict: A dictionary containing all calculated metrics.
+
+        Raises:
+            Exception: If an error occurs during metric calculation, logs the error and returns an empty dictionary.
+        """
         try:
             gross_profit = sum([trade for trade in self.trade_returns if trade > 0]) if self.trade_returns else 0
             gross_loss = sum([trade for trade in self.trade_returns if trade < 0]) if self.trade_returns else 0
@@ -67,7 +112,16 @@ class PerformanceMetrics:
             return {}
 
     def print_metrics(self) -> None:
-        """Print performance metrics in a readable format."""
+        """
+        Print the calculated performance metrics in a readable tabular format.
+
+        Outputs include:
+            - Key metrics such as PnL, gross profit, gross loss, and ratios.
+            - Detailed open positions and trade logs using the `tabulate` library.
+
+        Logs:
+            Error: Logs any exceptions that occur while printing the metrics.
+        """
         metrics = self.calculate_metrics()
         try:
             print(f"Starting Portfolio Value: ${metrics['starting_balance']:.2f}")

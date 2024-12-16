@@ -4,7 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e6082b63-e430-4f4a-a647-1bd0542e4ea6" name="Changes" comment="add logging msg" />
+    <list default="true" id="e6082b63-e430-4f4a-a647-1bd0542e4ea6" name="Changes" comment="fixes for Inadequate capital handling">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/backtesting/backtester.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/backtesting/backtester.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/backtesting/strategies/momentum_strategy.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/backtesting/strategies/momentum_strategy.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -139,9 +143,9 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.backtester" />
-        <item itemvalue="Python tests.Python tests for momentum_strategy_unit_tests.TestMomentumStrategy" />
-        <item itemvalue="Python tests.Python tests for backtester_unit_tests.TestBacktester" />
         <item itemvalue="Python tests.Python tests for performance_metrics_unit_tests.TestPerformanceMetrics" />
+        <item itemvalue="Python tests.Python tests for backtester_unit_tests.TestBacktester" />
+        <item itemvalue="Python tests.Python tests for momentum_strategy_unit_tests.TestMomentumStrategy" />
         <item itemvalue="Python tests.Python tests for performance_metrics_unit_tests.TestPerformanceMetrics.test_calculate_metrics" />
       </list>
     </recent_temporary>
@@ -242,7 +246,15 @@
       <option name="project" value="LOCAL" />
       <updated>1734312929960</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="fixes for Inadequate capital handling">
+      <option name="closed" value="true" />
+      <created>1734314689743</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1734314689743</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -267,7 +279,8 @@
     <MESSAGE value="add available capital info" />
     <MESSAGE value="fixes for shorting-capital treatment" />
     <MESSAGE value="add logging msg" />
-    <option name="LAST_COMMIT_MESSAGE" value="add logging msg" />
+    <MESSAGE value="fixes for Inadequate capital handling" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixes for Inadequate capital handling" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

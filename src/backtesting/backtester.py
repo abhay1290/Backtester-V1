@@ -1,7 +1,7 @@
 import logging
 from pandas import Timestamp
 
-from src.backtesting.PerformanceMetrics import PerformanceMetrics
+from src.backtesting.performance_metrics import PerformanceMetrics
 from src.backtesting.strategies.momentum_strategy import MomentumStrategy
 from src.backtesting.strategies.base_strategy import Strategy
 from typing import List, Dict
@@ -10,14 +10,41 @@ from src.definitions import SPX_FUTURE_DATA, SPX_INDEX_DATA
 
 
 class Backtester:
-    """Simple backtester that goes over the data in incremental time
-    steps. The size of the time steps depend on the granularity of the
-    data. When working with 1-minute interval data, each time step is
-    taken 1 minute into the future.
+    """
+    Simple backtester that processes market data step-by-step and evaluates trading strategies.
+
+    Attributes:
+        strategy (Strategy): The trading strategy to be tested.
+        data (pd.DataFrame): The market data for backtesting, with datetime index and price columns.
+        initial_capital (float): The starting capital for the backtest.
+        capital (float): The current capital during the backtest.
+        commission (float): The commission cost per trade.
+        trade_log (List[Dict]): A log of all trades executed during the backtest.
+        current_index (Timestamp): The current timestamp in the backtest.
+        current_date (datetime.date): The current date in the backtest.
+        position_close_time (List[Timestamp]): A list of timestamps when positions are due for closure.
+        trade_returns (List[float]): Absolute returns for each trade.
+        trade_returns_percentage (List[float]): Percentage returns for each trade.
+        close_time_delta (int): The time in minutes before the exchange close to exit trades.
+        exchange_close_time (Timestamp): The daily exchange closing time.
+        pending_trades (List[Dict]): Trades pending settlement due to market closure.
+        short_ratio (float): The fraction of the price required for short selling.
     """
 
     def __init__(self, strategy: Strategy, data: pd.DataFrame, initial_capital: float,
                  commission: float, close_time_delta: int):
+
+        """
+        Initialize the backtester with strategy, data, and configuration.
+
+        Args:
+                strategy (Strategy): The trading strategy to be tested.
+                data (pd.DataFrame): The market data for backtesting.
+                initial_capital (float): The initial capital for the backtest.
+                commission (float): The commission cost per trade.
+                close_time_delta (int): The time (in minutes) before the market closes to exit trades.
+        """
+
         self.strategy = strategy
         self.data = data
         self.initial_capital = initial_capital
@@ -35,7 +62,13 @@ class Backtester:
         self.short_ratio = 0.5
 
     def run(self) -> None:
-        """Run the backtest."""
+        """
+        Execute the backtest by stepping through the data and applying the strategy.
+
+        Handles opening and closing positions based on strategy signals and market conditions.
+        Logs errors in strategy execution or data processing.
+        """
+
         while self.next():
             try:
                 self.check_strategy()
@@ -60,7 +93,12 @@ class Backtester:
 
 
     def next(self) -> bool:
-        """Move to the next time step."""
+        """
+        Advance to the next time step in the data.
+
+        Returns:
+            bool: True if a valid next step exists, False otherwise.
+        """
         try:
             if self.current_index is None:
                 self.current_index = self.data.index[0]
@@ -80,7 +118,12 @@ class Backtester:
         return False
 
     def check_strategy(self) -> bool:
-        """Check if we need to buy or sell."""
+        """
+        Evaluate the strategy to decide whether to open a BUY or SELL position.
+
+        Returns:
+            bool: True if a position was successfully opened, False otherwise.
+        """
         if self.strategy.should_buy(self.current_index):
             if self.open_position('BUY'):
                 self.update_position_close_time('BUY')
@@ -93,6 +136,13 @@ class Backtester:
         return False
 
     def update_position_close_time(self, action: str):
+        """
+        Schedule the position close time based on the current timestamp and market close rules.
+
+        Args:
+            action (str): The type of trade ('BUY' or 'SELL').
+        """
+
         if self.current_index.time() >= (self.exchange_close_time - pd.Timedelta(minutes=self.close_time_delta)).time():
             pending_trade = {
                 'time': self.current_index,
@@ -105,11 +155,25 @@ class Backtester:
 
 
     def settle_pending_positions(self) -> None:
+        """
+        Settle all pending trades from the previous day's session by closing positions.
+        """
+
         for trade in self.pending_trades[:]:
             self.close_pending_position(self.current_index, trade['time'])
             self.pending_trades.remove(trade)
 
     def open_position(self, action: str, quantity: int = 1) -> bool:
+        """
+        Open a trading position based on the strategy's signal.
+
+        Args:
+            action (str): The type of trade ('BUY' or 'SELL').
+            quantity (int): The number of units to trade (default is 1).
+
+        Returns:
+            bool: True if the position was successfully opened, False otherwise.
+        """
         try:
             price = float(self.data.loc[self.current_index].iloc[0])
             if action == 'BUY':
@@ -158,6 +222,15 @@ class Backtester:
             logging.error(f"Error: Invalid data for price at {self.current_index}. {e}")
 
     def get_trade_by_time(self, time: Timestamp) -> Dict:
+        """
+        Retrieve a trade by its opening time.
+
+        Args:
+            time (Timestamp): The timestamp of the trade.
+
+        Returns:
+            Dict: The trade details.
+         """
         try:
             trades = [trade for trade in self.trade_log if trade['time'] == time and trade['action'] != 'CLOSE']
             if not trades:
@@ -169,6 +242,13 @@ class Backtester:
             return {}
 
     def close_position(self, close_time: Timestamp, quantity: int = 1) -> None:
+        """
+        Close an open position at a specified time.
+
+        Args:
+            close_time (Timestamp): The timestamp for closing the position.
+            quantity (int): The number of units to close (default is 1).
+        """
         try:
             close_price = self.get_close_price(close_time)
             open_time = close_time - pd.Timedelta(minutes=self.close_time_delta)
@@ -186,6 +266,14 @@ class Backtester:
             logging.error(f"Unexpected error during close_position: {e}", exc_info=True)
 
     def close_pending_position(self, close_time: Timestamp, open_time: Timestamp, quantity: int = 1) -> None:
+        """
+        Close a pending position that was carried over due to market closure.
+
+        Args:
+            close_time (Timestamp): The timestamp for closing the position.
+            open_time (Timestamp): The timestamp when the position was opened.
+            quantity (int): The number of units to close (default is 1).
+        """
         try:
             close_price = self.get_close_price(close_time)
             trade = self.get_trade_by_time(open_time)
@@ -202,7 +290,15 @@ class Backtester:
             logging.error(f"Unexpected error during close_pending_position: {e}", exc_info=True)
 
     def get_close_price(self, close_time: Timestamp) -> float:
-        """Helper function to get the close price from the data."""
+        """
+        Retrieve the market price at a specified time for closing a trade.
+
+        Args:
+            close_time (Timestamp): The timestamp to fetch the price.
+
+        Returns:
+            float: The market price at the specified time.
+        """
         try:
             return float(self.data.loc[close_time].iloc[0])
         except KeyError:
@@ -213,7 +309,16 @@ class Backtester:
 
     def close_trade(self, action: str, close_time: Timestamp, close_price: float, open_trade_price: float,
                      quantity: int) -> None:
-        """Helper function to handle trade closure logic."""
+        """
+        Process the logic for closing a trade, updating capital, and calculating returns.
+
+        Args:
+            action (str): The type of trade ('BUY' or 'SELL').
+            close_time (Timestamp): The timestamp for closing the trade.
+            close_price (float): The price at which the trade was closed.
+            open_trade_price (float): The price at which the trade was opened.
+            quantity (int): The number of units traded.
+        """
         try:
             if action == 'BUY':
                 self.capital += (close_price * quantity) - self.commission
@@ -239,7 +344,11 @@ class Backtester:
             logging.error(f"Unexpected error during close_trade: {e}", exc_info=True)
 
     def print_performance(self) -> None:
-        """Delegate performance printing to PerformanceMetrics."""
+        """
+        Calculate and display the performance metrics of the backtest.
+
+        Delegates the computation to the PerformanceMetrics class.
+        """
         metrics = PerformanceMetrics(
             initial_capital=self.initial_capital,
             capital=self.capital,
