@@ -91,6 +91,9 @@ class Backtester:
                     logging.error(f"Error closing pending position at {self.current_index}: {e}", exc_info=True)
                     continue
 
+            if (self.current_index + pd.Timedelta(minutes=1)).time() == self.exchange_close_time.time():
+                self.generate_day_wise_statistics()
+
 
     def next(self) -> bool:
         """
@@ -343,6 +346,49 @@ class Backtester:
         except Exception as e:
             logging.error(f"Unexpected error during close_trade: {e}", exc_info=True)
 
+    def generate_day_wise_statistics(self) -> None:
+        """
+        Generate daily statistics based on the completed trades of the day.
+
+        This method aggregates performance metrics such as total profit/loss,
+        number of trades executed, and percentage returns for the current day.
+        Logs the summary at the end of the day.
+        """
+        try:
+
+            current_day_trades = [trade for trade in self.trade_log if trade['time'].date() == self.current_date]
+            current_day__pending_trades = [trade for trade in self.pending_trades if trade['time'].date() == self.current_date]
+
+            daily_profit_loss = sum(
+                (trade['price'] - self.get_trade_by_time(trade['time'] - pd.Timedelta(minutes=self.close_time_delta))['price'])
+                for trade in current_day_trades if trade['action'] == 'CLOSE' and trade['time'].time() != Timestamp('09:30:00').time()
+            )
+            daily_commission = len(current_day_trades) * self.commission
+            total_trades = len(current_day_trades)
+
+            daily_percentage_return = (daily_profit_loss / self.initial_capital) * 100
+
+            logging.info(f"Day: {self.current_date}")
+            logging.info(f"Daily Profit/Loss: {daily_profit_loss:.2f}")
+            logging.info(f"Daily Percentage Return: {daily_percentage_return:.2f}%")
+            logging.info(f"Total Trades: {total_trades}")
+            logging.info(f"Total Pending Trades: {len(current_day__pending_trades)}")
+            logging.info(f"Total Commission: {daily_commission:.2f}")
+            logging.info(f"Available Capital: {self.capital: .2f}")
+
+            #print(f"\n")
+            print(f"Day: {self.current_date}")
+            print(f"Daily Profit/Loss: {daily_profit_loss:.2f}")
+            print(f"Daily Percentage Return: {daily_percentage_return:.2f}%")
+            print(f"Total Trades: {total_trades}")
+            print(f"Total Pending Trades: {len(current_day__pending_trades)}")
+            print(f"Total Commission: {daily_commission:.2f}")
+            print(f"Available Capital: {self.capital: .2f}")
+            print(f"\n")
+
+        except Exception as e:
+            logging.error(f"Error generating daily statistics for {self.current_date}: {e}", exc_info=True)
+
     def print_performance(self) -> None:
         """
         Calculate and display the performance metrics of the backtest.
@@ -374,6 +420,6 @@ if __name__ == "__main__":
     spx_data = spx_data_1m[['Close']]
     spx_future_data = spx_future_data_1m[['Close']]
 
-    backtester = Backtester(MomentumStrategy(spx_future_data, 0.0003, 5),spx_data,100000, 2.0, 10)
+    backtester = Backtester(MomentumStrategy(spx_future_data, 0.00001, 5),spx_data,100000, 2.0, 10)
     backtester.run()
     backtester.print_performance()

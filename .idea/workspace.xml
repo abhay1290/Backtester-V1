@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e6082b63-e430-4f4a-a647-1bd0542e4ea6" name="Changes" comment="fixes for Inadequate capital handling">
+    <list default="true" id="e6082b63-e430-4f4a-a647-1bd0542e4ea6" name="Changes" comment="add documentation">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/backtesting/backtester.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/backtesting/backtester.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/backtesting/strategies/momentum_strategy.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/backtesting/strategies/momentum_strategy.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,6 +24,22 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitLabMergeRequestFiltersHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPENED",
+    "assignee": {
+      "type": "org.jetbrains.plugins.gitlab.mergerequest.ui.filters.GitLabMergeRequestsFiltersValue.MergeRequestsMemberFilterValue.MergeRequestsAssigneeFilterValue",
+      "username": "b00789448",
+      "fullname": "Abhay KAROL"
+    }
+  }
+}]]></component>
+  <component name="GitLabMergeRequestsSettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "first": "https://gitlab.com/b00789448/crossoptionsassessment.git",
+    "second": "923d1015-e68d-4ad0-8f21-69def0480358"
+  }
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 4
 }</component>
@@ -49,7 +64,7 @@
     "Python tests.Python tests for performance_metrics_unit_tests.TestPerformanceMetrics.test_print_metrics.executor": "Run",
     "Python tests.Python tests for test_momentum_strategy.TestMomentumStrategy.executor": "Run",
     "Python tests.Python tests in momentum_strategy_unit_tests.py.executor": "Run",
-    "Python.backtester.executor": "Run",
+    "Python.backtester.executor": "Debug",
     "Python.clean_data.executor": "Run",
     "Python.yfinance_1min_data_example.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
@@ -254,7 +269,15 @@
       <option name="project" value="LOCAL" />
       <updated>1734314689743</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="add documentation">
+      <option name="closed" value="true" />
+      <created>1734321201182</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1734321201182</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -280,15 +303,37 @@
     <MESSAGE value="fixes for shorting-capital treatment" />
     <MESSAGE value="add logging msg" />
     <MESSAGE value="fixes for Inadequate capital handling" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixes for Inadequate capital handling" />
+    <MESSAGE value="add documentation" />
+    <option name="LAST_COMMIT_MESSAGE" value="add documentation" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/src/backtesting/PerformanceMetrics.py</url>
+          <url>file://$PROJECT_DIR$/src/backtesting/performance_metrics.py</url>
           <line>29</line>
           <option name="timeStamp" value="22" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/src/backtesting/backtester.py</url>
+          <line>385</line>
+          <option name="timeStamp" value="26" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/src/backtesting/backtester.py</url>
+          <line>366</line>
+          <option name="timeStamp" value="27" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/src/backtesting/backtester.py</url>
+          <line>94</line>
+          <option name="timeStamp" value="31" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <condition expression="self.current_index == Timestamp('15:59:00')" language="Python" />
+          <url>file://$PROJECT_DIR$/src/backtesting/backtester.py</url>
+          <line>93</line>
+          <option name="timeStamp" value="32" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
