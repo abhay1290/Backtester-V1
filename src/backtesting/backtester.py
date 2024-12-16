@@ -82,14 +82,14 @@ class Backtester:
     def check_strategy(self) -> bool:
         """Check if we need to buy or sell."""
         if self.strategy.should_buy(self.current_index):
-            self.open_position('BUY')
-            self.update_position_close_time('BUY')
-            return True
+            if self.open_position('BUY'):
+                self.update_position_close_time('BUY')
+                return True
 
         elif self.strategy.should_sell(self.current_index):
-            self.open_position('SELL')
-            self.update_position_close_time('SELL')
-            return True
+            if self.open_position('SELL'):
+                self.update_position_close_time('SELL')
+                return True
         return False
 
     def update_position_close_time(self, action: str):
@@ -109,7 +109,7 @@ class Backtester:
             self.close_pending_position(self.current_index, trade['time'])
             self.pending_trades.remove(trade)
 
-    def open_position(self, action: str, quantity: int = 1) -> None:
+    def open_position(self, action: str, quantity: int = 1) -> bool:
         try:
             price = float(self.data.loc[self.current_index].iloc[0])
             if action == 'BUY':
@@ -126,10 +126,11 @@ class Backtester:
                     }
 
                     self.trade_log.append(trade)
+                    return True
                 else:
                     print(f"Inadequate capital to make the BUY trade at {self.current_index}, {price:.2f}, Quantity: {quantity}")
                     logging.warning(f"Inadequate capital to make the BUY trade at {self.current_index}, {price:.2f}, Quantity: {quantity}")
-
+                    return False
 
             elif action == 'SELL':
                 if self.capital - (price * quantity * self.short_ratio) - self.commission > 0:  # capital is available to make the trade
@@ -145,10 +146,11 @@ class Backtester:
                     }
 
                     self.trade_log.append(trade)
+                    return True
                 else:
                     print(f"Inadequate capital to make the SELL trade at {self.current_index}, {price:.2f}, Quantity: {quantity}")
                     logging.warning(f"Inadequate capital to make the SELL trade at {self.current_index}, {price:.2f}, Quantity: {quantity}")
-
+                    return False
 
         except KeyError:
             logging.error(f"Error: Data missing for index {self.current_index} to open {action} position.")
