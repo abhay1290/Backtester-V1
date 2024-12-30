@@ -1,6 +1,3 @@
-# Python Software Engineer Case
-> December 2024, Cross Options
-
 ## Description
 One of our analysts has come up with a new trading strategy that he wants to verify before taking it to the real markets.
 To do this you can use a **backtester**, which is a way to check the performance of a trading strategy on historical data.
