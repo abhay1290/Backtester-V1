@@ -1,6 +1,3 @@
-# Python Software Engineer Case
-> December 2024, Cross Options
-
 Description:
 
 The following code is the working solution for the creating back testing tool for Momentum Strategy using SPX_Futures data is a signal generator and taking Long/Short positions on the SPX_500 index.
